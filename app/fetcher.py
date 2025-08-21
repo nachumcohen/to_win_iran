@@ -3,8 +3,6 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 
-from data_clean import DataCleaner
-
 load_dotenv()
 
 class MongoConnector:
@@ -20,15 +18,5 @@ class MongoConnector:
         collection = self.db[collection_name]
         data = collection.find({})
         df = pd.DataFrame(data)
-
-        """--------------------------------------------------------------------------"""
-        """clear text and save to csv"""
-        text = df['Text']
-        text2 = DataCleaner.clean_punctuation_marks(text)
-        text3 = DataCleaner.convert_to_lower(text2)
-
-        df['Text'] = text3
-        df.to_csv("../data/mongodb.csv", index=False, encoding="utf-8")
-        """--------------------------------------------------------------------------"""
 
         return df
