@@ -1,0 +1,1 @@
+collections = self.db.list_collection_names()
